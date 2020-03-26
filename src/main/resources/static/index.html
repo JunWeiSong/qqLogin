@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QQ登录</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+</head>
+<body>
+    <a href="/qq/oauth">qq登录</a><hr>
+    <div class="qqInfo"></div>
+
+    <div class="add"><a href="javascript:void(0);">分享到空间</a></div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+    var jsonValue,cookieValue;
+    $(function () {
+        //cookie缓存，获取登录状态
+        cookieValue = $.cookie('personInfo'); // 读取 cookie
+        if(cookieValue!==undefined){
+            jsonValue = eval("(" + cookieValue + ")");
+
+            $(".qqInfo").append("<p>编号："+jsonValue.openid+"</p><p>性别："+jsonValue.sex+"</p>" +
+                "<p>昵称："+jsonValue.nickname+"</p><div><img src='"+jsonValue.imgUrl+"'></div>");
+            console.log(jsonValue)
+        }
+    });
+
+    /**
+     * 分享到QQ空间
+     */
+    $(document).on('click',".add",function () {
+        if(cookieValue!==undefined){
+            location.href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.yeliusu.top?sharesource=qzone&title='文章标题'&pics="+
+            jsonValue.imgUrl+"&summary='文章内容的一部分，可以截取后放在这里'";
+        }else{
+            alert("您还未登录啊");
+        }
+    });
+</script>
