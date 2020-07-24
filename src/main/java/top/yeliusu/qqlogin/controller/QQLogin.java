@@ -18,6 +18,7 @@ import java.util.UUID;
 
 /**
  * qq登录
+ * 测试版本 V1.0.0
  * @author SongJunWei
  */
 @Controller
